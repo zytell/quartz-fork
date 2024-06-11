@@ -58,8 +58,12 @@ ul,
   }
 }
 
+strong {
+  font-weight: $semiBoldWeight;
+}
+
 a {
-  font-weight: $boldWeight;
+  font-weight: $semiBoldWeight;
   text-decoration: none;
   transition: color 0.2s ease;
   color: var(--secondary);
@@ -79,6 +83,11 @@ a {
       background-color: none;
       border-radius: 0;
       padding: 0;
+    }
+    &.tag-link {
+      &::before {
+        content: "#";
+      }
     }
   }
 
@@ -508,4 +517,9 @@ ol.overflow {
   ul {
     padding-left: 1rem;
   }
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
 }
