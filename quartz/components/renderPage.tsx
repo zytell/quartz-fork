@@ -229,7 +229,7 @@ export function renderPage(
                   ))}
                 </div>
               </div>
-              <Content {...componentData} />
+              <Content {...componentData} dir="auto"/>
             </div>
             {RightComponent}
           </Body>

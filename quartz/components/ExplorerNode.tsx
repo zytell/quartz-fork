@@ -178,7 +178,7 @@ export function ExplorerNode({ node, opts, fullPath, fileData }: ExplorerNodePro
       {node.file ? (
         // Single file node
         <li key={node.file.slug}>
-          <a href={resolveRelative(fileData.slug!, node.file.slug!)} data-for={node.file.slug}>
+          <a href={resolveRelative(fileData.slug!, node.file.slug!)} data-for={node.file.slug} dir="rtl">
             {node.displayName}
           </a>
         </li>
@@ -209,6 +209,7 @@ export function ExplorerNode({ node, opts, fullPath, fileData }: ExplorerNodePro
                     href={resolveRelative(fileData.slug!, folderPath as SimpleSlug)}
                     data-for={node.name}
                     class="folder-title"
+                    dir="rtl"
                   >
                     {node.displayName}
                   </a>

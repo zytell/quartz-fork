@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  quartz:
+    image: quartz
+    ports:
+      - "8080:8080"
