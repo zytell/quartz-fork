@@ -177,25 +177,10 @@ async function partialRebuildFromEntrypoint(
   switch (action) {
     case "add":
       // add to cache when new file is added
-      processedFiles = await parseMarkdown(ctx, [fp])
-      processedFiles.forEach(([tree, vfile]) => contentMap.set(vfile.data.filePath!, [tree, vfile]))
-
-      // update the dep graph by asking all emitters whether they depend on this file
-      for (const emitter of cfg.plugins.emitters) {
-        const emitterGraph =
-          (await emitter.getDependencyGraph?.(ctx, processedFiles, staticResources)) ?? null
-
-        if (emitterGraph) {
-          const existingGraph = dependencies[emitter.name]
-          if (existingGraph !== null) {
-            existingGraph.mergeGraph(emitterGraph)
-          } else {
-            // might be the first time we're adding a mardown file
-            dependencies[emitter.name] = emitterGraph
-          }
-        }
-      }
+            // Trigger a full rebuild when a new file is added
+      await rebuildFromEntrypoint(filepath, action, clientRefresh, buildData);
       break
+      
     case "change":
       // invalidate cache when file is changed
       processedFiles = await parseMarkdown(ctx, [fp])
@@ -310,6 +295,8 @@ async function partialRebuildFromEntrypoint(
   await rimraf([...destinationsToDelete])
 
   console.log(chalk.green(`Done rebuilding in ${perf.timeSince()}`))
+  // console.log("ALl files:" + allFiles)
+  
 
   toRemove.clear()
   release()
